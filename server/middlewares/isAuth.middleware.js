@@ -1,24 +1,30 @@
 import jwt from 'jsonwebtoken';
 
-const isAuth = async (req, res, next) => {
+const isAuth = (req, res, next) => {
   try {
-    const {token} = req.cookies.token;
+    const token = req.cookies.token; // ✅ Correct way
+
     if (!token) {
-      return res.status(401).json({ message: 'Unauthorized User ! Login first' });
+      return res.status(401).json({ 
+        success: false,
+        message: 'Unauthorized User! Please login first.' 
+      });
     }
 
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const verifyToken = await jwt.verify(token, process.env.JWT_SECRET);
-    if(!verifyToken){
-      return res.status(401).json({ message: 'User does not have valid token' });
-    }
+    // Attach userId to request for next middleware
+    req.userId = decoded.userId;
 
-    req.userId = verifyToken.userId;
     next();
+  } catch (error) {
+    return res.status(401).json({ 
+      success: false,
+      message: 'Invalid or expired token',
+      error: error.message 
+    });
   }
-    catch(error){
-     res.status(500).json({ message: `isAuth error ${error} ` });
-    }
-}
+};
 
 export default isAuth;
