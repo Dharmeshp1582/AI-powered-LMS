@@ -8,6 +8,8 @@ import toast from 'react-hot-toast';
 import {ClipLoader} from 'react-spinners'
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../utils/firebase';
 
 const Signup = () => {
 
@@ -41,6 +43,25 @@ dispatch(setUserData(res.data))
     toast.error(error.message)
     setLoading(false);
    }
+  }
+
+  const googleSignup = async () => {
+    try {
+      const res = await signInWithPopup(auth,provider)
+      
+      const user = res.user;
+
+      const name = user.displayName;
+      const email = user.email;
+
+      const res2 = await axios.post(serverUrl + "/api/auth/googleauth", {name,email,role},{withCredentials: true});
+      toast.success("User created successfully");
+      navigate("/");
+      dispatch(setUserData(res2.data))
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
   }
 
   return (
@@ -82,7 +103,7 @@ dispatch(setUserData(res.data))
         <div className='w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center '>Or continue</div>
         <div className='w-[25%] h-[0.5px] bg-[#c4c4c4]'></div>
         </div>
-   <div className='w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center'>
+   <div className='w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer' onClick={googleSignup}>
  <img src={google} alt="" className='w-[25px]' />
  <span className='text-[18px] text-gray-500'>oogle</span>
    </div>
