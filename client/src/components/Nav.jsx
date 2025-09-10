@@ -61,7 +61,7 @@ const Nav = () => {
 
         {/* Educator Dashboard */}
         {userData?.role === "educator" && (
-          <div className='px-[20px] py-[10px] border-2 lg:border-white border-black lg:text-white bg-black text-black rounded-[10px] text-[18px] font-light cursor-pointer'>
+          <div onClick={()=> navigate("/dashboard")} className='px-[20px] py-[10px] border-2 lg:border-white border-black lg:text-white bg-black text-black rounded-[10px] text-[18px] font-light cursor-pointer'>
             Dashboard
           </div>
         )}
@@ -108,7 +108,7 @@ const Nav = () => {
 
 
         {userData?.role === "educator" && (
-          <div className='w-[180px] h-[60px] flex items-center justify-center border-2 border-white lg:border-black text-white bg-black lg:text-black rounded-[10px] text-[18px] font-light cursor-pointer'>
+          <div onClick={()=> navigate("/dashboard")} className='w-[180px] h-[60px] flex items-center justify-center border-2 border-white lg:border-black text-white bg-black lg:text-black rounded-[10px] text-[18px] font-light cursor-pointer'>
             Dashboard
           </div>
         )}

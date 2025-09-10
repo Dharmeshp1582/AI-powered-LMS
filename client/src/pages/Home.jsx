@@ -6,6 +6,7 @@ import ai from '../assets/ai.png'
 import ai1 from '../assets/searchAi.png'
 import Logos from '../components/Logos'
 import ExploreCourses from '../components/ExploreCourses'
+import ScrollEffect from '../components/ScrollEffect'
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
     </div>
     <Logos />
     <ExploreCourses />
+    <ScrollEffect />
     </div>
   )
 }
