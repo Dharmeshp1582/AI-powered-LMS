@@ -103,9 +103,9 @@ dispatch(setUserData(res.data))
         <div className='w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center '>Or continue</div>
         <div className='w-[25%] h-[0.5px] bg-[#c4c4c4]'></div>
         </div>
-   <div className='w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer' onClick={googleSignup}>
+   <div className='w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center hover:bg-[#cac6c6]  cursor-pointer hover:text-white' onClick={googleSignup}>
  <img src={google} alt="" className='w-[25px]' />
- <span className='text-[18px] text-gray-500'>oogle</span>
+ <span className='text-[18px] text-gray-500 hover:text-white'>oogle</span>
    </div>
    <div className='text-[#6f6f6f]'>
  Already have an account ? <span className='underline underline-offset-1 text-black cursor-pointer' onClick={() => navigate('/login')}>Login</span>
