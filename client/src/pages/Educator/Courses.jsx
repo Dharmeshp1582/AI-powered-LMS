@@ -1,12 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom';
 import img from '../../assets/empty.jpg'
-import {FaEdit} from 'react-icons/fa6'
+import {FaEdit} from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux';
+import getCreatorCourse from '../../customHooks/getCreatorCourse';
+import { serverUrl } from '../../App';
+import axios from 'axios';
+import { setCreatorCourseData } from '../../redux/courseSlice';
 
 const Courses = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const {userData} = useSelector((state) => state.user); 
+  const {creatorCourseData} = useSelector((state) => state.course);
+
+ useEffect(() => {
+      const creatorCourses = async () => {
+        try {
+          const res = await axios.get(serverUrl + "/api/course/getcreator", {
+            withCredentials: true
+          })
+          console.log(res.data)
+        dispatch(setCreatorCourseData(res.data))
+
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      creatorCourses();
+    },[userData])
+  
 
   return (
     <div className='flex min-h-screen bg-gray-100'>
@@ -34,29 +60,41 @@ const Courses = () => {
       </thead>
 
       <tbody>
-        <tr className='border-b hover:bg-gray-50 transition duration-200'>
-          <td className='py-3 px-4 flex items-center gap-4'><img src={img} alt="" className='w-25 h-14 object-cover rounded-md ' /><span>Title</span> </td>
-          <td className='py-3 px-4'>₹ NA</td>
-          <td className='py-3 px-4'><span className='px-3 py-1 rounded-full text-xs bg-red-100 text-red-600'>Draft</span></td>
+
+      {creatorCourseData?.courses?.map((course,index) => (
+        <tr key={index} className='border-b hover:bg-gray-50 transition duration-200'>
+          <td className='py-3 px-4 flex items-center gap-4'>
+         {course.thumbnail ? <img src={course?.thumbnail} alt="" className='w-25 h-14 object-cover rounded-md ' /> : <img src={img} alt="" className='w-25 h-14 object-cover rounded-md ' />}<span>{course?.title}</span> </td>
+         {course?.price ? <td className='py-3 px-4'>₹ {course?.price}</td>:
+          <td className='py-3 px-4'>₹ NA</td>}
+          <td className='py-3 px-4'><span className={`px-3 py-1 rounded-full text-xs ${course.isPublished ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>{course.isPublished ? 'Published' : 'Draft'}</span></td>
           <td className='py-3 px-4'>
-             {/* <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
-                    <input onChange={()=> toggleAvailability(item._id)}
-                      type="checkbox"
-                      className="sr-only peer"
-                      checked={Course.isAvailable}
-                    />
-                    <div className="w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-blue-600 transition-colors duration-200"></div>
-                    <span className="dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-5 ease-in-out"></span>
-                  </label> */}
-                  <FaEdit className='w-[20px] h-[20px] cursor-pointer text-black' />
+                  <FaEdit onClick={()=> navigate(`/editcourse/${course?._id}`)} className='w-[20px] h-[20px] cursor-pointer text-gray-600 ml-5 hover:text-blue-600' />
           </td>
         </tr>
+      ))}
       </tbody>
      </table>
+     <p className='text-center text-sm text-gray-400 mt-6'>A List of Your Recent Courses.</p>
        </div>
 
         {/* For small screen Table */}
-      <div className=''>
+      <div className='md:hidden space-y-4'>
+     {creatorCourseData?.courses?.map((course,index)=>( <div key={index} className='bg-white rounded-lg shadow p-4 flex flex-col gap-3'>
+      <div className='flex gap-4 items-center'>
+       {course?.thumbnail ? <img src={course?.thumbnail} alt="" className='w-16 h-16 rounded-md object-cover' />: <img src={img} alt="" className='w-16 h-16 rounded-md object-cover' />}
+        <div className='flex-1'>
+       <h2 className='font-medium text-sm'>
+     {course?.title}
+       </h2>
+       {course?.price ? <p className='text-gray-600 text-xs mt-1'>₹ {course?.price}</p>:<p className='text-gray-600 text-xs mt-1'>₹ NA</p>}
+        </div>
+                  <FaEdit onClick={()=> navigate(`/editcourse/${course?._id}`)} className='w-[20px] h-[20px] cursor-pointer text-gray-600 hover:text-blue-600' />
+      </div>
+
+      <span className={`w-fit px-3 py-1 text-xs rounded-full  ${course.isPublished ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>{course.isPublished ? 'Published' : 'Draft'}</span>
+      </div>))}
+      <p className='text-center text-sm text-gray-400 mt-4 '>A List of Your Recent Courses.</p>
       </div>
       </div>
     </div>

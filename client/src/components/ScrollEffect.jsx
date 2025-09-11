@@ -19,7 +19,7 @@ const ScrollEffect = () => {
   return (
     <div className="w-screen min-h-[50vh] lg:h-[50vh] flex flex-col lg:flex-row items-center justify-center gap-6 px-6 bg-black text-white">
       {/* Hero Section */}
-      <header className="relative flex flex-col items-center justify-center gap-6 w-full pt-12 md:pt-14 lg:pt-20">
+      <header className="relative flex flex-col items-center justify-center gap-3 w-full pt-12 md:pt-14 lg:pt-20">
         <div className="relative flex flex-col items-center justify-center gap-2 w-fit">
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-9 md:leading-[60px] text-center">
             Learn Skills That Matter
@@ -30,7 +30,7 @@ const ScrollEffect = () => {
         </div>
 
         {/* CTA */}
-        <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm md:text-base px-4 py-3 md:px-6 md:py-3 lg:px-7 lg:py-3 rounded-lg flex items-center gap-2 mt-6" onClick={() => navigate("/courses")}>
+        <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm md:text-base px-4 py-3 md:px-6 md:py-3 lg:px-7 lg:py-3 rounded-lg flex items-center gap-2 mt-6 cursor-pointer" onClick={() => navigate("/allcourses")}>
           Get Started
           <span>
             <BiSearch className="w-6 h-6" />

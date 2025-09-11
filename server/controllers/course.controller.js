@@ -16,15 +16,16 @@ export const createCourse = async (req, res) => {
     const course = await Course.create(
       {
         title,
-        description, 
+        category, 
         creator: req.userId
       }
     );
 
     return res.status(201).json({
-      success: true,
-      course
-    })
+  success: true,
+  message: "Course created successfully",
+  course
+})
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -45,6 +46,7 @@ export const getPublishedCourses = async (req, res) => {
     }
     return res.status(200).json({
       success: true,
+      message: "Courses fetched successfully",
       courses
     })
   } catch (error) {
@@ -68,6 +70,7 @@ try {
   }
   return res.status(200).json({
     success: true,
+    message: "Getting Creator Courses fetched successfully",
     courses
   })
 } catch (error) {
@@ -113,6 +116,7 @@ export const editCourse = async (req, res) => {
 
     return res.status(200).json({
       success: true,
+      message:"Course updated successfully",
       course
     })
   } catch (error) {
@@ -135,6 +139,7 @@ export const getCourseById = async(req, res) => {
     }
     return res.status(200).json({
       success: true,
+      message: "Getting Course by id successfully",
       course
     })
   } catch (error) {

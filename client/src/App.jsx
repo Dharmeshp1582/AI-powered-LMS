@@ -12,10 +12,16 @@ import EditProfile from './pages/EditProfile'
 import Courses from './pages/Educator/Courses'
 import Dashboard from './pages/Educator/Dashboard'
 import CreateCourses from './pages/Educator/CreateCourses'
+import getCreatorCourse from './customHooks/getCreatorCourse'
+import EditCourse from './pages/Educator/EditCourse'
+import getPublishedCourse from './customHooks/getPublishedCourse'
+import AllCourses from './pages/AllCourses'
 
 export const serverUrl = "http://localhost:8000"
 const App = () => {
     getCurrentUser();
+    getCreatorCourse();
+    getPublishedCourse();
     const {userData} = useSelector((state) => state.user);
 
   return (
@@ -31,6 +37,8 @@ const App = () => {
       <Route path='/dashboard' element={userData?.role === "educator" ? <Dashboard/> : <Navigate to="/signup"/>} />
       <Route path='/courses' element={userData?.role === "educator" ? <Courses/> : <Navigate to="/signup"/>} />
       <Route path='/createcourse' element={userData?.role === "educator" ? <CreateCourses/> : <Navigate to="/signup"/>} />
+      <Route path='/editcourse/:courseId' element={userData?.role === "educator" ? <EditCourse/> : <Navigate to="/signup"/>} />
+      <Route path='/allcourses' element={userData ? <AllCourses/> : <Navigate to="/signup"/>} />
     </Routes>
    </>
   )
