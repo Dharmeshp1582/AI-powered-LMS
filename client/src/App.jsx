@@ -16,6 +16,10 @@ import getCreatorCourse from './customHooks/getCreatorCourse'
 import EditCourse from './pages/Educator/EditCourse'
 import getPublishedCourse from './customHooks/getPublishedCourse'
 import AllCourses from './pages/AllCourses'
+import CreateLecture from './pages/Educator/CreateLecture'
+import EditLecture from './pages/Educator/EditLecture'
+import ViewCourses from './pages/ViewCourses'
+import ScrollToTop from './components/ScrollToTop'
 
 export const serverUrl = "http://localhost:8000"
 const App = () => {
@@ -27,6 +31,7 @@ const App = () => {
   return (
    <>
    <Toaster/>
+   <ScrollToTop />
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/signup' element={!userData ? <Signup/> : <Navigate to="/"/>} />
@@ -39,6 +44,10 @@ const App = () => {
       <Route path='/createcourse' element={userData?.role === "educator" ? <CreateCourses/> : <Navigate to="/signup"/>} />
       <Route path='/editcourse/:courseId' element={userData?.role === "educator" ? <EditCourse/> : <Navigate to="/signup"/>} />
       <Route path='/allcourses' element={userData ? <AllCourses/> : <Navigate to="/signup"/>} />
+      <Route path='/createlecture/:courseId' element={userData?.role === "educator" ? <CreateLecture/> : <Navigate to="/signup"/>} />
+
+      <Route path='/editlecture/:courseId/:lectureId' element={userData?.role === "educator" ? <EditLecture/> : <Navigate to="/signup"/>} />
+      <Route path='/viewcourse/:courseId' element={userData?.role === "educator" ? <ViewCourses/> : <Navigate to="/signup"/>} />
     </Routes>
    </>
   )
