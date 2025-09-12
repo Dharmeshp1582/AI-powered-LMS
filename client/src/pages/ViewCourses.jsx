@@ -7,8 +7,8 @@ import { setSelectedCourse } from '../redux/courseSlice';
 import { FaPlayCircle } from 'react-icons/fa';
 import axios from 'axios';
 import { serverUrl } from '../App';
-import { set } from 'mongoose';
 import Card from '../components/Card';
+import toast from 'react-hot-toast';
 
 const ViewCourses = () => {
 
@@ -22,6 +22,8 @@ const ViewCourses = () => {
   const [creatorData, setCreatorData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [creatorCourses, setCreatorCourses] = useState(null);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const {userData} = useSelector((state) => state.user);
 
   const fetchCourseData = async () => {
     courseData?.map(course => {
@@ -34,9 +36,6 @@ const ViewCourses = () => {
     })
   }
 
-  useEffect(()=>{
-    fetchCourseData();
-  },[courseData,courseId]);
 
   useEffect(()=>{
   if (creatorData?._id) {
@@ -60,6 +59,70 @@ const ViewCourses = () => {
     }
     handleCreator();
   },[selectedCourse])
+
+
+  const handleEnroll = async (courseId, userId) => {
+  try {
+    const orderData = await axios.post(
+      serverUrl + "/api/order/razorpay-order",
+      { courseId, userId },
+      { withCredentials: true }
+    );
+
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: orderData.data.order.amount,
+      currency: "INR",
+      name: "VIRTUAL COURSES",
+      description: "COURSE ENROLLMENT PAYMENT",
+      order_id: orderData.data.order.id,
+      handler: async function (response) {
+        console.log("Razorpay response", response);
+        try {
+          const verifyPayment = await axios.post(
+            serverUrl + "/api/order/verify-payment",{
+              ...response,
+              courseId,
+            userId},{withCredentials: true}
+          )
+          setIsEnrolled(true);
+          toast.success(verifyPayment.data.message);
+          
+        } catch (error) {
+          console.log(error)
+          toast.error(error.message)
+        }
+      }
+      
+    }
+
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+
+    console.log("order data", orderData);
+
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong while enrolling the course");
+  }
+};
+
+
+const checkEnrollment = () => {
+    const verify = userData?.enrolledCourses?.some(c => 
+    (typeof c === 'string' ? c : c._id).toString() === courseId?.toString()
+    );
+    if(verify){
+       setIsEnrolled(true);
+    }
+
+  }
+
+    useEffect(()=>{
+    fetchCourseData();
+    checkEnrollment();
+  },[courseData,courseId,userData]);
+
 
   return (
     <div className='min-h-screen bg-gray-50 p-6'>
@@ -98,7 +161,7 @@ const ViewCourses = () => {
      <li>✅ Lifetime access to course materials</li>
    </ul>
 
-   <button className='bg-black text-white px-6 py-2 rounded hover:bg-white hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3'>Enroll Now</button>
+  {!isEnrolled ? <button className='bg-black text-white px-6 py-2 rounded hover:bg-white hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' onClick={()=>handleEnroll(courseId,userData._id)}>Enroll Now</button> : <button className='bg-green-100 text-green-600 px-6 py-2 rounded hover:bg-gray-300 hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' disabled>Watch now</button> }
 
    </div>
 </div>

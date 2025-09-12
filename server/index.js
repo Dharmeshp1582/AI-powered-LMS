@@ -6,6 +6,7 @@ import cors from 'cors'
 import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
 import courseRouter from './routes/course.route.js';
+import paymentRouter from './routes/payment.route.js';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(cors({
 app.use("/api/auth",authRouter);
 app.use("/api/user",userRouter);
 app.use('/api/course',courseRouter);
+app.use('/api/order',paymentRouter);
 
 app.get('/', (req, res) => {
   res.send('API is running...');

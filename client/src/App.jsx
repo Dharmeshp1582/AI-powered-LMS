@@ -47,7 +47,7 @@ const App = () => {
       <Route path='/createlecture/:courseId' element={userData?.role === "educator" ? <CreateLecture/> : <Navigate to="/signup"/>} />
 
       <Route path='/editlecture/:courseId/:lectureId' element={userData?.role === "educator" ? <EditLecture/> : <Navigate to="/signup"/>} />
-      <Route path='/viewcourse/:courseId' element={userData?.role === "educator" ? <ViewCourses/> : <Navigate to="/signup"/>} />
+      <Route path='/viewcourse/:courseId' element={userData?.role === 'educator' ? <ViewCourses/> : <Navigate to="/signup"/>} />
     </Routes>
    </>
   )
