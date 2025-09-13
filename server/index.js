@@ -7,6 +7,7 @@ import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
 import courseRouter from './routes/course.route.js';
 import paymentRouter from './routes/payment.route.js';
+import reviewRouter from './routes/review.route.js';
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ app.use("/api/auth",authRouter);
 app.use("/api/user",userRouter);
 app.use('/api/course',courseRouter);
 app.use('/api/order',paymentRouter);
+app.use('/api/review',reviewRouter);
+
 
 app.get('/', (req, res) => {
   res.send('API is running...');

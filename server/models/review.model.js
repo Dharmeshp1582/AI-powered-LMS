@@ -1,0 +1,30 @@
+import mongoose from 'mongoose'
+
+const reviewSchema = new mongoose.Schema({
+ course:{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'Course',
+ },
+ user:{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'User',
+ },
+ rating: {
+  type: Number,
+  min: 1,
+  max: 5,
+  required: true
+ },
+ comment: {
+  type: String,
+  trim: true,
+  required: true
+ },
+ reviewedAt: {
+  type: Date,
+  default: Date.now
+ }
+},{timestamps: true})
+
+const Review = mongoose.model('Review', reviewSchema)
+export default Review

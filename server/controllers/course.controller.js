@@ -37,7 +37,7 @@ export const createCourse = async (req, res) => {
 
 export const getPublishedCourses = async (req, res) => {
   try {
-    const courses = await Course.find({ isPublished: true }).populate('lectures');
+    const courses = await Course.find({ isPublished: true }).populate('lectures reviews').populate("creator", "name email photoUrl description"); 
 
     if (!courses.length) {
       return res.status(404).json({
@@ -62,7 +62,7 @@ export const getPublishedCourses = async (req, res) => {
 export const getCreatorCourses = async (req, res) => {
   try {
     const userId = req.userId;
-    const courses = await Course.find({ creator: userId });
+    const courses = await Course.find({ creator: userId }) .populate("creator", "name email photoUrl description");;
 
     if (!courses.length) {
       return res.status(404).json({
@@ -131,7 +131,7 @@ export const editCourse = async (req, res) => {
 export const getCourseById = async (req, res) => {
   try {
     const { courseId } = req.params;
-    const course = await Course.findById(courseId);
+    const course = await Course.findById(courseId).populate("creator", "name email photoUrl description");;
 
     if (!course) {
       return res.status(404).json({
