@@ -161,7 +161,7 @@ const checkEnrollment = () => {
      <li>✅ Lifetime access to course materials</li>
    </ul>
 
-  {!isEnrolled ? <button className='bg-black text-white px-6 py-2 rounded hover:bg-white hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' onClick={()=>handleEnroll(courseId,userData._id)}>Enroll Now</button> : <button className='bg-green-100 text-green-600 px-6 py-2 rounded hover:bg-gray-300 hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' disabled>Watch now</button> }
+  {!isEnrolled ? <button className='bg-black text-white px-6 py-2 rounded hover:bg-white hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' onClick={()=>handleEnroll(courseId,userData._id)}>Enroll Now</button> : <button className='bg-green-100 text-green-600 px-6 py-2 rounded hover:bg-gray-300 hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' onClick={()=> navigate(`/viewlecture/${courseId}`)} >Watch now</button> }
 
    </div>
 </div>

@@ -20,6 +20,8 @@ import CreateLecture from './pages/Educator/CreateLecture'
 import EditLecture from './pages/Educator/EditLecture'
 import ViewCourses from './pages/ViewCourses'
 import ScrollToTop from './components/ScrollToTop'
+import ViewLectures from './pages/ViewLectures'
+import MyEnrolledCourses from './pages/MyEnrolledCourses'
 
 export const serverUrl = "http://localhost:8000"
 const App = () => {
@@ -47,7 +49,10 @@ const App = () => {
       <Route path='/createlecture/:courseId' element={userData?.role === "educator" ? <CreateLecture/> : <Navigate to="/signup"/>} />
 
       <Route path='/editlecture/:courseId/:lectureId' element={userData?.role === "educator" ? <EditLecture/> : <Navigate to="/signup"/>} />
-      <Route path='/viewcourse/:courseId' element={userData?.role === 'educator' ? <ViewCourses/> : <Navigate to="/signup"/>} />
+      <Route path='/viewcourse/:courseId' element={userData ? <ViewCourses/> : <Navigate to="/signup"/>} />
+      <Route path='/viewlecture/:courseId' element={userData ? <ViewLectures/> : <Navigate to="/signup"/>} />
+
+      <Route path='/mycourses' element={userData ? <MyEnrolledCourses/> : <Navigate to="/signup"/>} />
     </Routes>
    </>
   )

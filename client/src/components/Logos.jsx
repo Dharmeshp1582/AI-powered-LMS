@@ -7,7 +7,7 @@ import {BiSupport} from 'react-icons/bi'
 const Logos = () => {
   return (
     <div className='w-[100vw] min-h-[90px] flex items-center justify-center flex-wrap gap-4 md:mb-[50px] '>
-        <div className='flex items-center justify-center gap-2  px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer'>
+        <div className='flex items-center justify-center gap-2  px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer '>
         <MdCastForEducation className='w-[25px] h-[25px] fill-black text-[#' />
         20K+ online Courses
         </div>

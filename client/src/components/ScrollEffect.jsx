@@ -17,7 +17,7 @@ const ScrollEffect = () => {
   ];
 
   return (
-    <div className="w-screen min-h-[50vh] lg:h-[50vh] flex flex-col lg:flex-row items-center justify-center gap-6 px-6 bg-black text-white">
+    <div className="w-screen min-h-[50vh] lg:h-[50vh] flex flex-col lg:flex-row items-center justify-center gap-6 px-6 bg-black text-white mb-5 ">
       {/* Hero Section */}
       <header className="relative flex flex-col items-center justify-center gap-3 w-full pt-12 md:pt-14 lg:pt-20">
         <div className="relative flex flex-col items-center justify-center gap-2 w-fit">

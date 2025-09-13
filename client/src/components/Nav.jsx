@@ -79,7 +79,7 @@ const Nav = () => {
 { show &&
         <div className='absolute top-[110%] right-[15%] flex items-center flex-col justify-center gap-2 text-[16px] rounded-md bg-white px-[15px] py-[10px] border-[2px] border-black hover:border-white hover:text-white cursor-pointer hover:bg-black '>
 <span  onClick ={()=> navigate("/profile")} className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600 '>My Profile</span>
-<span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600'>My Courses</span>
+<span className='bg-black text-white px-[30px] py-[10px] rounded-2xl hover:bg-gray-600' onClick={()=> navigate("/mycourses")}>My Courses</span>
         </div>}
       </div>
         <RxHamburgerMenu className='w-[30px] h-[30px] lg:hidden fill-black text-white cursor-pointer' onClick={()=> setShowHam(!showHam)} />
@@ -102,7 +102,7 @@ const Nav = () => {
             My Profile
           </div>
         
-        <div className='w-[180px] h-[60px] flex items-center justify-center border-2 border-white lg:border-black text-white bg-black lg:text-black rounded-[10px] text-[18px] font-light cursor-pointer'>
+        <div className='w-[180px] h-[60px] flex items-center justify-center border-2 border-white lg:border-black text-white bg-black lg:text-black rounded-[10px] text-[18px] font-light cursor-pointer' onClick={()=> navigate("/mycourses")}>
             My Courses
           </div>
 
