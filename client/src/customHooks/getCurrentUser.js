@@ -5,7 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../redux/userSlice";
 
-const useCurrentUser = () => {
+const getCurrentUser = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const useCurrentUser = () => {
   }, [dispatch]);
 };
 
-export default useCurrentUser;
+export default getCurrentUser;

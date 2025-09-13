@@ -30,7 +30,7 @@ const ScrollEffect = () => {
         </div>
 
         {/* CTA */}
-        <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm md:text-base px-4 py-3 md:px-6 md:py-3 lg:px-7 lg:py-3 rounded-lg flex items-center gap-2 mt-6 cursor-pointer" onClick={() => navigate("/allcourses")}>
+        <button className="bg-white hover:bg-gray-600 text-black hover:text-white border-2 border-white font-semibold text-sm md:text-base px-4 py-3 md:px-6 md:py-3 lg:px-7 lg:py-3 rounded-lg flex items-center gap-2 mt-6 cursor-pointer" onClick={() => navigate("/allcourses")}>
           Get Started
           <span>
             <BiSearch className="w-6 h-6" />

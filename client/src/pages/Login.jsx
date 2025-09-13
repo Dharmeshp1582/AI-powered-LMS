@@ -6,10 +6,11 @@ import toast from 'react-hot-toast';
 import axios from 'axios'
 import { serverUrl } from '../App';
 import { ClipLoader } from 'react-spinners';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../utils/firebase';
+// import { FaArrowLeftLong } from 'react-icons/fa6';
 
 const Login = () => {
   const [show,setShow] = useState(false);
@@ -65,8 +66,17 @@ const Login = () => {
       }
   
     return (
-      <div className='bg-[#dddbdb] w-[100vw] h-[100vh] flex items-center justify-center gap-3 '>
+      <div className='bg-[#dddbdb] w-[100vw] h-[100vh] flex items-center justify-center gap-3'>
+      
          <form onSubmit={handleLogin}  className='w-[90%] md:w-200 h-150 bg-white shadow-xl rounded-2xl flex '>
+
+ 
+          {/* <FaArrowLeftLong
+            onClick={() => navigate("/")}
+            className='w-[22px] h-[22px] cursor-pointer absolute top-[20px] left-[20px]'
+          /> */}
+        
+
          {/* Left div  */}
         <div className='md:w-[50%] w-[100%] h-[100%] flex flex-col items-center justify-center gap-3 '>
           <div>
