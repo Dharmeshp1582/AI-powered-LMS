@@ -26,7 +26,7 @@ import getAllReviews from './customHooks/getAllReviews'
 import SearchWithAi from './pages/SearchWithAi'
 import PageNotFound from './components/PageNotFound'
 
-export const serverUrl = "http://localhost:8000"
+export const serverUrl = "https://ai-powered-lms-rhlx.onrender.com"
 const App = () => {
     getCurrentUser();
     getCreatorCourse();
