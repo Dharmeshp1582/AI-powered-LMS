@@ -188,7 +188,7 @@ const checkEnrollment = () => {
 
    <div className='text-yellow-500 font-medium flex gap-2'>
      <span className='flex items-center justify-star gap-1'>{avgRating}<FaStar className='text-yellow-500' /></span>
-     <span className='text-gray-400'>(1,200 Reviews)</span>
+     <span className='text-gray-400'>({selectedCourse?.reviews?.length} Reviews)</span>
    </div>
 
    <div>
@@ -201,7 +201,22 @@ const checkEnrollment = () => {
      <li>✅ Lifetime access to course materials</li>
    </ul>
 
-  {!isEnrolled ? <button className='bg-black text-white px-6 py-2 rounded hover:bg-white hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' onClick={()=>handleEnroll(courseId,userData._id)}>Enroll Now</button> : <button className='bg-green-100 text-green-600 px-6 py-2 rounded hover:bg-gray-300 hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3' onClick={()=> navigate(`/viewlecture/${courseId}`)} >Watch now</button> }
+ {(!isEnrolled && userData?._id !== creatorData?._id) ? (
+  <button
+    className='bg-black text-white px-6 py-2 rounded hover:bg-white hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3'
+    onClick={() => handleEnroll(courseId, userData._id)}
+  >
+    Enroll Now
+  </button>
+) : (
+  <button
+    className='bg-green-100 text-green-600 px-6 py-2 rounded hover:bg-gray-300 hover:text-black border-2 border-black cursor-pointer lg:mt-5 mt-3'
+    onClick={() => navigate(`/viewlecture/${courseId}`)}
+  >
+    Watch Now
+  </button>
+)}
+
 
    </div>
 </div>

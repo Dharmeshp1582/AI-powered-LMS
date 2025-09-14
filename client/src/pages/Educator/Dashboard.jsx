@@ -8,21 +8,27 @@ const Dashboard = () => {
   
   const {userData} = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const {creatorCourseData} = useSelector((state) => state.course);
+ const { creatorCourseData } = useSelector((state) => state.course);
 
-  const courseProgressData = creatorCourseData.map((course) => ({name: course?.title?.slice(0, 10) + "...",
-   lectures: course?.lectures?.length || 0,
-  })) || [];
+// normalize: if it's not an array, fallback to []
+const safeCourses = Array.isArray(creatorCourseData) ? creatorCourseData : [];
 
-  const EnrollData = creatorCourseData.map((course) => ({name: course?.title?.slice(0, 10) + "...",
-   enrolledStudents: course?.enrolledStudents?.length || 0,
-  })) || [];
+const courseProgressData = safeCourses.map((course) => ({
+  name: course?.title?.slice(0, 10) + "...",
+  lectures: course?.lectures?.length || 0,
+}));
 
-  const totalEarning = creatorCourseData?.reduce((sum,course)=>{
-    const studentCount = course.enrolledStudents?.length || 0;
-    const courseRevenue = course.price ? course.price * studentCount : 0;
-    return sum + courseRevenue;
-  },0) || 0
+const EnrollData = safeCourses.map((course) => ({
+  name: course?.title?.slice(0, 10) + "...",
+  enrolledStudents: course?.enrolledStudents?.length || 0,
+}));
+
+const totalEarning = safeCourses.reduce((sum, course) => {
+  const studentCount = course.enrolledStudents?.length || 0;
+  const courseRevenue = course.price ? course.price * studentCount : 0;
+  return sum + courseRevenue;
+}, 0);
+
 
   return (
     <div className='flex min-h-screen bg-gray-100'>

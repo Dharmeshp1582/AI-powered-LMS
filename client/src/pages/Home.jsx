@@ -28,7 +28,7 @@ const Home = () => {
 
       <div className='absolute lg:top-[30%] top-[75%] md:top-[80%] w-[100%] flex items-center justify-center gap-3 flex-wrap '>
     <button className='px-[20px] py-[10px] border-2 lg:border-white border-black lg:text-white text-black text-[18px] rounded-[10px] font-light flex gap-2 cursor-pointer' onClick={()=> navigate("/allcourses")}>View all courses <SiViaplay className='w-[30px] h-[30px] lg:fill-white fill-black ' /></button>
-    <button className='px-[20px] py-[10px]  lg:bg-white bg-black lg:text-black text-white text-[18px] rounded-[10px] font-light flex gap-2 cursor-pointer items-center '>Search with AI <img src={ai} alt="" className='w-[30px] h-[30px] rounded-full hidden lg:block ' /> <img src={ai1} alt="" className='w-[35px] h-[35px] rounded-full lg:hidden block ' /> </button>
+    <button className='px-[20px] py-[10px]  lg:bg-white bg-black lg:text-black text-white text-[18px] rounded-[10px] font-light flex gap-2 cursor-pointer items-center ' onClick={()=> navigate("/search")}>Search with AI <img src={ai} alt="" className='w-[30px] h-[30px] rounded-full hidden lg:block ' /> <img src={ai1} alt="" className='w-[35px] h-[35px] rounded-full lg:hidden block ' /> </button>
       </div>
     </div>
     <Logos />

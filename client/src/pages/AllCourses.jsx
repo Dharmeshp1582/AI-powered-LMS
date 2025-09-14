@@ -45,6 +45,51 @@ const AllCourses = () => {
    applyFilter()
   },[category])
 
+
+
+
+ const speak =(message)=>{
+       let utterance = new SpeechSynthesisUtterance(message);
+       window.speechSynthesis.speak(utterance);
+ }
+
+ const speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition();
+
+ const recognition = new speechRecognition();
+
+if(!recognition) {
+  toast.error('Speech recognition not supported')
+}
+
+const handleSearch = async () => {
+  setListing(true)
+  if(!recognition) return ;
+  recognition.start()
+  startSound.play()
+  recognition.onresult = async (e) => {
+  const transcript = e.results[0][0].transcript.trim();
+  setInput(transcript);
+  handleRecommendation(transcript)
+  }
+}
+
+const handleRecommendation = async (query) => {
+  try {
+    const result = await axios.post(serverUrl + '/api/course/search', { input : query }, { withCredentials: true });
+   console.log(result.data)
+   setRecommendations(result.data)
+   setListing(false)
+   if(result.data?.course?.length > 0) {
+   speak(`These are the Top recommended courses for you`)
+   }else{
+    speak(`No Courses found`)
+   }
+  } catch (error) {
+    console.log(error)
+    setListing(false)
+  }
+}
+
   return (
     <div className='flex min-h-screen bg-gray-50'>
     <Nav />
@@ -59,7 +104,7 @@ const AllCourses = () => {
 
       <form onSubmit={(e)=>e.preventDefault()} className='space-y-4 text-sm bg-gray-600  border-white text-white border p-[20px] rounded-2xl'>
 
-        <button className='px-[10px] py-[10px] bg-black text-white text-[15px] rounded-[10px] font-light flex gap-2  items-center justify-center cursor-pointer'>Search with AI <img src={ai} alt="" className='w-[30px] h-[30px] rounded-full  lg:block ' /> </button>
+        <button className='px-[10px] py-[10px] bg-black text-white text-[15px] rounded-[10px] font-light flex gap-2  items-center justify-center cursor-pointer' onClick={()=> navigate("/search")}>Search with AI <img src={ai} alt="" className='w-[30px] h-[30px] rounded-full  lg:block ' /> </button>
 
         <label htmlFor='' className='flex items-center gap-3 cursor-pointer hover:text-gray-200 transition'>
           <input onChange={toggleCategory } value={"AI/ML"} type="checkbox" className='accent-black w-4 h-4 rounded-md' />AI/ML
